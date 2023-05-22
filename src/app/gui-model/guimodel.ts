@@ -6,7 +6,7 @@ export class GuiModel {
 
     private _guiModel = {
         "application": {
-            "title": "Marc Schifferle, Jarin Schnierl, Michal Möckli Friend Tracker (FS2023)",
+            "title": "Marc Schifferle, Jarin Schnierl, Michael Möckli Friend Tracker (FS2023)",
             "formList": [
                 {
                     "id": "GroupForm",
@@ -19,6 +19,20 @@ export class GuiModel {
                     "name": "GroupName",
                     "width": 2,
                     "required": true
+                    },
+                    {
+                        "id": "comment",
+                        "type": "text",
+                        "name": "Comments",
+                        "width": 2,
+                        "height": 4,
+                        "maxLength": 5000,
+                    },
+                    {
+                        "id": "date",
+                        "type": "date",
+                        "name": "CreationDate",
+                        "width": 2
                     },
                     {
                     "type": "deleteButton",
@@ -106,6 +120,56 @@ export class GuiModel {
                     ]
                 },
                 {
+                    "id": "ActivityForm",
+                    "title": "Activity",
+                    "url": "/activity",
+                    "formFieldList": [
+                        {
+                            "id": "name",
+                            "type": "text",
+                            "name": "Activity",
+                            "width": 2,
+                            "required": true
+                        },
+                        {
+                            "id": "date",
+                            "type": "date",
+                            "name": "Date",
+                            "width": 2
+                        },
+                        {
+                            "id":   "location",
+                            "type": "autocomplete",
+                            "name": "Location",
+                            "url": "/location",
+                            "defaultKey": "locationKey",
+                            "readonly": true,
+                            "form": "LocationForm",
+                            "width": 2
+                        },
+                        {
+                            "id": "comment",
+                            "type": "text",
+                            "name": "Comments",
+                            "width": 2,
+                            "height": 4,
+                            "maxLength": 5000,
+                        },
+                        {
+                            "type": "deleteButton",
+                            "name": "Delete"
+                        },
+                        {
+                            "type": "cancelButton",
+                            "name": "Cancel"
+                        },
+                        {
+                            "type": "okButton",
+                            "name": "Ok"
+                        }
+                    ]
+                },
+                {
                     "id": "LocationForm",
                     "title": "Location",
                     "url": "/location",
@@ -116,6 +180,44 @@ export class GuiModel {
                             "name": "LocationName",
                             "width": 2,
                             "required": true
+                        },
+                        {
+                            "id": "comment",
+                            "type": "text",
+                            "name": "Comments",
+                            "width": 2,
+                            "height": 4,
+                            "maxLength": 5000,
+                        },
+                        
+                        {
+                            "type": "deleteButton",
+                            "name": "Delete"
+                        },
+                        {
+                            "type": "cancelButton",
+                            "name": "Cancel"
+                        },
+                        {
+                            "type": "okButton",
+                            "name": "Ok"
+                        }
+                    ]
+                },
+                {
+                    "id": "AddFriendForm",
+                    "title": "Friend",
+                    "url": "/activity/:activityKey/friend",
+                    "formFieldList": [
+                        {
+                            "id":   "friend",
+                            "type": "autocomplete",
+                            "name": "Friend",
+                            "url": "/friend",
+                            "defaultKey": "friendKey",
+                            "readonly": true,
+                            "form": "FriendForm",
+                            "width": 2
                         },
                         {
                             "type": "deleteButton",
@@ -175,6 +277,13 @@ export class GuiModel {
                         },
                         {
                             "type": "button",
+                            "name": "Activity",
+                            "icon": "fa-user",
+                            "color": "green",
+                            "page": "activitypage",
+                        },
+                        {
+                            "type": "button",
                             "name": "Location",
                             "icon": "fa-cubes",
                             "color": "yellow",
@@ -208,6 +317,101 @@ export class GuiModel {
                             "type": "list",
                             "icon": "fa-user",
                             "color": "blue",
+                            "search": true,
+                            "url": "/friend",
+                           "page": "friendpage"
+                        },
+                    ]
+                },
+                {
+                    "id": "friendpage",
+                    "elementList": [
+                        {
+                            "type": "backbutton",
+                        },
+                        {
+                            "type": "newButton",
+                            "name": "EditFriend",
+                            "icon": "fa-user",
+                            "color": "green",
+                            "form": {
+                                "form": "FriendForm"
+                            }
+                        },
+                        {
+                            "type": "newButton",
+                            "name": "AddActivity",
+                            "icon": "fa-user",
+                            "color": "green",
+                            "form": {
+                                "form": "AddActivityForm"
+                            }
+                        },
+                        {
+                            "type": "list",
+                            "icon": "fa-user",
+                            "color": "orange",
+                            "search": true,
+                            "url": "/friend/:friendKey/activity",
+                            "form": {
+                                "form": "ActivityForm"
+                            }
+                        },
+                    ]
+                },
+                {
+                    "id": "activitypage",
+                    "elementList": [
+                        {
+                            "type": "backbutton",
+                        },
+                        {
+                            "type": "newButton",
+                            "name": "AddActivity",
+                            "icon": "fa-user",
+                            "color": "green",
+                            "form": {
+                                "form": "ActivityForm"
+                            }
+                        },
+                        {
+                            "type": "list",
+                            "icon": "fa-user",
+                            "color": "green",
+                            "search": true,
+                            "url": "/activity",
+                            "page": "singleactivitypage"
+                        },
+                    ]
+                },
+                {
+                    "id": "singleactivitypage",
+                    "elementList": [
+                        {
+                            "type": "backbutton",
+                        },
+                        {
+                            "type": "newButton",
+                            "name": "EditActivity",
+                            "icon": "fa-user",
+                            "color": "green",
+                            "form": {
+                                "form": "ActivityForm"
+                            }
+                        },
+                        {
+                            "type": "newButton",
+                            "name": "AddFriend",
+                            "icon": "fa-user",
+                            "color": "blue",
+                            "form": {
+                                "form": "AddFriendForm"
+                            }
+                        },
+                        {
+                            "type": "list",
+                            "icon": "fa-user",
+                            "color": "green",
                             "search": true,
                             "url": "/friend",
                             "form": {
